@@ -8,7 +8,7 @@ const Login = () => {
             <div className="content">
                 <section className="my-2 mx-8 bg-white rounded-xl">
                     <div className="grid grid-cols-12 ">
-                        <div className="col-span-5">
+                        <div className="col-span-5 max-sm:col-span-12">
                             <form>
                                 <div className="py-12 w-4/5 flex flex-col login_form">
                                     <div className="logo">
@@ -66,7 +66,8 @@ const Login = () => {
                                 </div>
                             </form>
                         </div>
-                        <div className="col-span-7 ">
+
+                        <div className="col-span-7 max-sm:hidden">
                             <img src={banner_blog} className="h-full rounded-xl" alt="Banner Blog" />
                         </div>
                     </div>
