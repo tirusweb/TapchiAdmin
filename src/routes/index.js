@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import Post from '+/pages/Post/Post';
 import Login from '+/pages/Login';
 import Content from '+/pages/Content';
