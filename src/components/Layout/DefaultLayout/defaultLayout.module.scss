@@ -1,0 +1,17 @@
+.default {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   // background-color: #77b4c3;
+    background-color: #fff;
+}
+.header{
+}
+.container{
+    background-color: #fff;
+    width: calc(100% - 160px);
+    height: 100%;
+    overflow-y: auto;
+}
