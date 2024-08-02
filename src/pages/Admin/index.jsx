@@ -3,6 +3,7 @@ import TabAdmin from './Tabs/TabAdmin';
 import { Catrgory, Comment, Home, Menu, Post, Setting, User } from './Content';
 import { Button, Drawer } from '@mui/material';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import styled from 'styled-components';
 
 const AdminPage = () => {
     const [activeTab, setActiveTab] = useState('home');
@@ -48,7 +49,7 @@ const AdminPage = () => {
         };
     }, []);
     return (
-        <>
+        <StyledAdminPage>
             {isMobileView && (
                 <>
                     <div className="mb-3 flex justify-between items-center">
@@ -72,10 +73,16 @@ const AdminPage = () => {
                 )}
 
                 {/* Content */}
-                <div className="col-span-10 box_content">{renderTab()}</div>
+                <div className="col-span-10 box_content max-sm:col-span-12">{renderTab()}</div>
             </div>
-        </>
+        </StyledAdminPage>
     );
 };
+
+const StyledAdminPage = styled.div`
+    .box_content {
+        background-color: #f2f5f7;
+    }
+`;
 
 export default AdminPage;
