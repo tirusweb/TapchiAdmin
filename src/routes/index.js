@@ -7,7 +7,7 @@ const publicRoutes = [
     { path: '/post', component: Post },
     { path: '/login', component: Login },
     { path: '/content', component: Content, layout: null },
-    { path: '/admin', component: AdminPage },
+    { path: '/', component: AdminPage },
 ];
 
 const privateRoutes = [];

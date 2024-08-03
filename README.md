@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Clone project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Mọi người đọc hết phần này trước khi nào làm
 
-## Available Scripts
+## Install
 
-In the project directory, you can run:
+-   Khi clone code về thành công. run lệnh này để tải thư viện về
+-   run: npm i
 
-### `npm start`
+# Start project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   run : npm start
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Chú ý: không code trực tiếp trên nhánh main
 
-### `npm test`
+## Khi clone về xong. trước khi code chức năng của mình cần tạo nhánh mới và checkout về nhánh đó:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   run: git checkout -b [tên nhánh mới] ví dụ: git checkout -b feature/feature01
 
-### `npm run build`
+## Khi code xong đầy đủ chức năng của mình chạy:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   Kiểm tra trạng thái:
+-   run: git status
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Add các thay đổi:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   run: git add .
 
-### `npm run eject`
+## Commit code:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-   run: git commit -m "viết commit vào đây"
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## push code lên git:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-   run: git push origin [tên nhánh vừa tạo lúc đầu]
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Chú ý tiếp theo. Khi anh em code xong chức năng, push code lên nhánh mình tạo. Và nhánh main có thêm code mới thì:
 
-## Learn More
+## Checkout về nhánh main:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-   run: git checkout main
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Kiểm tra status:
 
-### Code Splitting
+-   run: git status // để xem mình đứng ở nhánh main chua
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## pull code mới từ nhánh main về:
 
-### Analyzing the Bundle Size
+-   run: git pull origin main
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## pull code xong thì lại tạo nhánh khác để code các chức năng tiếp
