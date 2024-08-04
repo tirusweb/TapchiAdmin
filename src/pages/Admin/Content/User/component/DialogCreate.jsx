@@ -2,7 +2,6 @@ import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { FaUserPlus } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import axios from 'axios';
 import { apiCreateUser } from '../../../../../services/Users';
 
 const DialogCreate = (props) => {

@@ -57,13 +57,13 @@ const UserDashboard = () => {
         dispatch(axiosUsers());
     }, [reloadData, dispatch]);
 
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp * 1000); // Nhân với 1000 để chuyển đổi từ giây sang mili giây
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    };
+    // const formatDate = (timestamp) => {
+    //     const date = new Date(timestamp * 1000); // Nhân với 1000 để chuyển đổi từ giây sang mili giây
+    //     const day = date.getDate().toString().padStart(2, '0');
+    //     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+    //     const year = date.getFullYear();
+    //     return `${day}/${month}/${year}`;
+    // };
 
     return (
         <StyledUser>
