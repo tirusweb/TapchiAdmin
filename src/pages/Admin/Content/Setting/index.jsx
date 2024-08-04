@@ -1,6 +1,4 @@
 import ButtonCreate from '+/components/Button/CreateButton';
-import ButtonDelete from '+/components/Button/DeleteButton';
-import ButtonEdit from '+/components/Button/EditButton';
 import StyledSetting from './Styled.Setting';
 
 const SettingDashboard = () => {

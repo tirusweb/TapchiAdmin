@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 const HomeDashboard = () => {
     return (
         <>
@@ -167,8 +165,8 @@ const HomeDashboard = () => {
                             <div class="font-semibold mb-2">Bài viết có lượt xem nhiều nhất</div>
                             <table class="min-w-full">
                                 <thead>
-                                    <tr className=''>
-                                        <th className='w-[20px]'>#</th>
+                                    <tr className="">
+                                        <th className="w-[20px]">#</th>
                                         <th className="text-left ml-2 w-[200px]">Bài đăng</th>
                                         <th className="text-left">Lượt xem</th>
                                     </tr>
@@ -218,7 +216,7 @@ const HomeDashboard = () => {
                             <table class="min-w-full">
                                 <thead>
                                     <tr>
-                                        <th className='w-[20px]'>#</th>
+                                        <th className="w-[20px]">#</th>
                                         <th className="text-left ml-2 w-[180px]">Bài đăng</th>
                                         <th className="text-left">Bình Luận</th>
                                     </tr>
@@ -262,15 +260,15 @@ const HomeDashboard = () => {
                         </div>
                     </div>
                     <div>
-                        <div class="bg-white p-4 rounded shadow-md mb-4">
-                            <div class="font-semibold mb-2">Bình Luận</div>
-                            <table class="min-w-full">
+                        <div className="bg-white p-4 rounded shadow-md mb-4">
+                            <div className="font-semibold mb-2">Bình Luận</div>
+                            <table className="min-w-full">
                                 <thead>
                                     <tr>
-                                        <th className='text-left '>#</th>
-                                        <th className='text-left '>Người dùng</th>
-                                        <th className='text-left '>Bình luận</th>
-                                        <th className='text-left '>Trạng Thái</th>
+                                        <th className="text-left ">#</th>
+                                        <th className="text-left ">Người dùng</th>
+                                        <th className="text-left ">Bình luận</th>
+                                        <th className="text-left ">Trạng Thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>

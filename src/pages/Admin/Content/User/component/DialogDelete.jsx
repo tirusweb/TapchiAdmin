@@ -1,13 +1,26 @@
 import { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import axios from 'axios';
 
-const DialogDelete = () => {
+const DialogDelete = (props) => {
+    const { handleCloseDialogDelete, selectUser: id, handleLoadData } = props;
+
+    const handleDelete = async () => {
+        await axios
+            .delete(`https://66adcf04b18f3614e3b5efd7.mockapi.io/api/Users/${id}`)
+            .then(() => {
+                handleCloseDialogDelete();
+                handleLoadData();
+            })
+            .catch((err) => console.log('Error fetching delete User: ', err));
+    };
+
     return (
         <>
             <DialogTitle id="responsive-dialog-title" className="flex flex-col items-center justify-center">
                 <div className="mx-auto mb-2 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-yellow-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                         <svg
-                            class="h-6 w-6 text-red-600"
+                            className="h-6 w-6 text-red-600"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
@@ -22,7 +35,7 @@ const DialogDelete = () => {
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
+                <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">
                     Xóa tài khoản
                 </h3>
             </DialogTitle>
@@ -34,16 +47,18 @@ const DialogDelete = () => {
             </DialogContent>
 
             <DialogActions>
-                <div class=" px-4 pb-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className=" px-4 pb-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
                         type="submit"
-                        class="inline-flex w-full justify-center rounded-md bg-red-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                        onClick={handleDelete}
+                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                     >
                         Xóa
                     </button>
                     <button
+                        onClick={handleCloseDialogDelete}
                         type="button"
-                        class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto"
+                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto"
                     >
                         Thoát
                     </button>
