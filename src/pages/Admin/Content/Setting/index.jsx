@@ -5,7 +5,7 @@ const SettingDashboard = () => {
     return (
         <StyledSetting>
             <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold">Manage Menu</h2>
+                <h2 className="text-xl font-semibold">Website Setting</h2>
                 {/* Button thêm account */}
                 <div>
                     <ButtonCreate name={'Set Web Setting'} />
@@ -29,9 +29,33 @@ const SettingDashboard = () => {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">1</td>
+                                    <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm">Title</td>
                                     <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                        <div className="flex">Tệp tin</div>
+                                        <div className="flex">online news</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm">Description</td>
+                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <div className="flex">online news</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm">Key words</td>
+                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <div className="flex">online news</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm">Logo</td>
+                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <div className="flex">online news</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm">Icon</td>
+                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <div className="flex">online news</div>
                                     </td>
                                 </tr>
                             </tbody>

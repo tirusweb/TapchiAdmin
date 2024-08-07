@@ -10,31 +10,45 @@ import DialogEdit from './component/DialogEdit';
 import DialogDelete from './component/DialogDelete';
 import { useDispatch, useSelector } from 'react-redux';
 import { axiosUsers, selectUsers } from '+/reduxToolkit/slides/usersSlide';
+import { format } from 'date-fns';
+import SimplePagination from '+/components/Pagination';
 
 const UserDashboard = () => {
     const [openDialogCreate, setOpenDialogCreate] = useState(false);
     const [openDialogEdit, setOpenDialogEdit] = useState(false);
     const [openDialogDelete, setOpenDialogDelete] = useState(false);
-    const [selectUser, setSelectUser] = useState();
+    const [selectedUser, setSelectedUser] = useState();
     const [reloadData, setReloadData] = useState();
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const dispatch = useDispatch();
     const users = useSelector(selectUsers);
+    const token = sessionStorage.getItem('accessToken');
+    const currentPage = useSelector((state) => state.usersReducer.currentPage);
+    const pageSize = useSelector((state) => state.usersReducer.pageSize);
+    const totalPages = useSelector((state) => state.usersReducer.totalPages);
 
     const showDialogCreate = () => {
         setOpenDialogCreate(true);
     };
 
-    const showDialogEdit = (id) => {
-        setOpenDialogEdit(true);
-        setSelectUser(id);
+    const handleNextPage = () => {
+        dispatch(axiosUsers({ token, currentPage: currentPage + 1, pageSize: pageSize }));
     };
 
-    const showDialogDelete = (id) => {
+    const handlePrevPage = () => {
+        dispatch(axiosUsers({ token, currentPage: currentPage - 1, pageSize: pageSize }));
+    };
+    const showDialogEdit = (user) => {
+        setOpenDialogEdit(true);
+        setSelectedUser(user);
+    };
+
+    const showDialogDelete = (user) => {
         setOpenDialogDelete(true);
-        setSelectUser(id);
+        setSelectedUser(user);
     };
 
     const handleCloseDialogCreate = () => {
@@ -54,16 +68,8 @@ const UserDashboard = () => {
     };
 
     useEffect(() => {
-        dispatch(axiosUsers());
+        dispatch(axiosUsers({ token, currentPage, pageSize }));
     }, [reloadData, dispatch]);
-
-    // const formatDate = (timestamp) => {
-    //     const date = new Date(timestamp * 1000); // Nhân với 1000 để chuyển đổi từ giây sang mili giây
-    //     const day = date.getDate().toString().padStart(2, '0');
-    //     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
-    //     const year = date.getFullYear();
-    //     return `${day}/${month}/${year}`;
-    // };
 
     return (
         <StyledUser>
@@ -112,9 +118,9 @@ const UserDashboard = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.map((user, i) => (
+                                {users?.map((user, i) => (
                                     <tr key={i}>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">{++i}</td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">{user.id}</td>
                                         <td className="px-5 border-b border-gray-200 bg-white text-sm">
                                             <div className="flex">{user.email}</div>
                                         </td>
@@ -122,20 +128,20 @@ const UserDashboard = () => {
                                             <p className="text-gray-600 whitespace-no-wrap">{user.username}</p>
                                         </td>
                                         <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">{user.created_at}</p>
-                                        </td>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">
-                                                {user.permission === '1' ? 'Admin' : 'User'}
+                                                {format(new Date(user.createdAt), 'dd/MM/yyyy HH:mm:ss')}
                                             </p>
                                         </td>
                                         <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                            <span onClick={() => showDialogEdit(user.id)}>
+                                            <p className="text-gray-900 whitespace-no-wrap">{user.permission}</p>
+                                        </td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                            <span onClick={() => showDialogEdit(user)}>
                                                 <ButtonEdit />
                                             </span>
                                         </td>
                                         <td className="px-5 py-2 border-b border-gray-200 bg-white text-sm text-left">
-                                            <span onClick={() => showDialogDelete(user.id)}>
+                                            <span onClick={() => showDialogDelete(user)}>
                                                 <ButtonDelete />
                                             </span>
                                         </td>
@@ -147,14 +153,14 @@ const UserDashboard = () => {
                 </div>
 
                 {/* Phân trang */}
-                {/* <div className="flex justify-end mr-10 mb-6">
+                <div className="flex justify-end mr-10 mb-6">
                     <SimplePagination
                         currentPage={currentPage}
                         totalPages={totalPages}
                         handleNextPage={handleNextPage}
                         handlePrevPage={handlePrevPage}
                     />
-                </div> */}
+                </div>
             </div>
             {/* Dialog Create User */}
             <Dialog
@@ -177,7 +183,7 @@ const UserDashboard = () => {
                 maxWidth="xs"
                 fullWidth={true}
             >
-                <DialogEdit {...{ handleCloseDialogEdit, selectUser, handleLoadData }} />
+                <DialogEdit {...{ handleCloseDialogEdit, selectedUser, handleLoadData }} />
             </Dialog>
             {/* Dialogg Delete User */}
             <Dialog
@@ -188,7 +194,7 @@ const UserDashboard = () => {
                 maxWidth="xs"
                 fullWidth={true}
             >
-                <DialogDelete {...{ handleCloseDialogDelete, selectUser, handleLoadData }} />
+                <DialogDelete {...{ handleCloseDialogDelete, selectedUser, handleLoadData }} />
             </Dialog>
         </StyledUser>
     );

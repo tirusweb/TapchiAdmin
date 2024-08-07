@@ -4,15 +4,19 @@ import { Catrgory, Comment, Home, Menu, Post, Setting, User } from './Content';
 import { Button, Drawer } from '@mui/material';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
     const [activeTab, setActiveTab] = useState('home');
     const [isMobileView, setIsMobileView] = useState(false);
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
+
+    const token = sessionStorage.getItem('accessToken');
 
     // List Tab Admin
     const renderTab = () => {
@@ -37,6 +41,10 @@ const AdminPage = () => {
     };
 
     useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+
         const handleResize = () => {
             setIsMobileView(window.innerWidth <= 830);
         };
@@ -48,6 +56,7 @@ const AdminPage = () => {
             window.removeEventListener('resize', handleResize); // Xóa sự kiện khi component bị unmount
         };
     }, []);
+
     return (
         <StyledAdminPage>
             {isMobileView && (
@@ -73,7 +82,7 @@ const AdminPage = () => {
                 )}
 
                 {/* Content */}
-                <div className="col-span-10 box_content max-sm:col-span-12">{renderTab()}</div>
+                <div className="col-span-10 box_content max-md:col-span-12">{renderTab()}</div>
             </div>
         </StyledAdminPage>
     );

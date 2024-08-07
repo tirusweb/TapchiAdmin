@@ -6,20 +6,28 @@ import { apiCreateUser } from '../../../../../services/Users';
 
 const DialogCreate = (props) => {
     const { handleCloseDialogCreate, handleLoadData } = props;
-
+    const token = sessionStorage.getItem('accessToken');
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
+
     const [firstError, setFirstError] = useState(null);
 
     const onSubmit = async (data) => {
-        setFirstError(null);
         const nowDate = new Date().toISOString().split('T')[0];
-        const newData = { ...data, created_at: nowDate };
+        const newData = {
+            ...data,
+            createdAt: nowDate,
+            permission: {
+                name: data.permission,
+            },
+            createAt: new Date(nowDate).getTime(),
+            active: true,
+        };
         try {
-            await apiCreateUser(newData);
+            await apiCreateUser(newData, token);
             handleCloseDialogCreate();
             handleLoadData();
         } catch (err) {
@@ -126,7 +134,7 @@ const DialogCreate = (props) => {
                                 type="radio"
                                 id="admin"
                                 name="permission"
-                                value="1"
+                                value="admin"
                                 className="mr-1"
                                 {...register('permission', { required: 'Bạn cần chọn quyền hạn !' })}
                             />
@@ -137,7 +145,7 @@ const DialogCreate = (props) => {
                                 type="radio"
                                 id="user"
                                 name="permission"
-                                value="0"
+                                value="user"
                                 className="mr-1"
                                 {...register('permission', { required: 'Bạn cần chọn quyền hạn !' })}
                             />

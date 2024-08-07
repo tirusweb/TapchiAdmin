@@ -1,21 +1,43 @@
 import { http } from './http';
 
-export const apiGetUser = () => {
-    return http.get(`/api/Users`);
+export const apiLogin = (data) => {
+    return http.post(`api/login`, data);
 };
 
-export const apiGetUserDetail = (id) => {
-    return http.get(`api/Users/${id}`);
+export const apiLogout = (token) => {
+    return http.put(`/user/logout`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 };
 
-export const apiCreateUser = (data) => {
-    return http.post(`/api/Users`, data);
+export const apiGetUser = ({ token, currentPage, pageSize }) => {
+    return http.get(`/user/search?pageIndex=${currentPage}&pageSize=${pageSize}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 };
 
-export const apiEditUser = (id, data) => {
-    return http.put(`api/Users/${id}`, data);
+export const apiGetUserDetail = (username, token) => {
+    return http.get(`user/${username}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
 };
 
-export const apiDeleteUser = (id) => {
-    return http.delete(`api/User/${id}`);
+export const apiCreateUser = (data, token) => {
+    return http.post(`/user`, data, { headers: { Authorization: `Bearer ${token}` } });
+};
+
+export const apiEditUser = (token, id, data) => {
+    return http.put(`user/${id}`, data, { headers: { Authorization: `Bearer ${token}` } });
+};
+
+export const apiDeleteUser = (token, id) => {
+    return http.delete(`user/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 };

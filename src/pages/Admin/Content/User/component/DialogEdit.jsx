@@ -1,44 +1,35 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { apiGetUserDetail } from '+/services/Users';
+import { apiEditUser } from '+/services/Users';
 const { DialogTitle, DialogContent, DialogActions } = require('@mui/material');
 const { FaUserEdit } = require('react-icons/fa');
 
 const DialogEdit = (props) => {
-    const { handleCloseDialogEdit, selectUser: id, handleLoadData } = props;
-    const { user, setUser } = useState();
+    const { handleCloseDialogEdit, selectedUser, handleLoadData } = props;
     const {
         register,
         handleSubmit,
         formState: { errors },
         setValue,
     } = useForm();
-
     const [firstError, setFirstError] = useState(null);
 
-    const fetchUserDetail = async () => {
-        try {
-            const res = await apiGetUserDetail(id);
-            console.log(res.data);
-
-            const userDetail = res.data;
-            setValue('email', userDetail.email);
-            setValue('username', userDetail.username);
-            setValue('permission', userDetail.permission);
-        } catch (err) {
-            console.log('>>> Error Fetching user detail: ', err);
-        }
-    };
-
     const onSubmit = async (data) => {
-        await axios
-            .put(`https://66adcf04b18f3614e3b5efd7.mockapi.io/api/Users/${id}`, data)
-            .then(() => {
-                handleCloseDialogEdit();
-                handleLoadData();
-            })
-            .catch((err) => console.log('Error fetching User: ', err));
+        const newData = {
+            ...data,
+            permission: {
+                name: data.permission,
+            },
+            active: true,
+        };
+        try {
+            const token = sessionStorage.getItem('accessToken');
+            await apiEditUser(token, selectedUser.id, newData);
+            handleCloseDialogEdit();
+            handleLoadData();
+        } catch (err) {
+            console.log('Error fetching edit: ', err);
+        }
     };
 
     const onError = (errorList) => {
@@ -53,8 +44,10 @@ const DialogEdit = (props) => {
     };
 
     useEffect(() => {
-        fetchUserDetail();
-    }, [setValue]);
+        setValue('email', selectedUser.email);
+        setValue('username', selectedUser.username);
+        setValue('permission', selectedUser.permission);
+    }, []);
 
     return (
         <form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -62,7 +55,7 @@ const DialogEdit = (props) => {
                 <div className="mx-auto mb-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-yellow-100 sm:mx-0 sm:h-10 sm:w-10">
                     <FaUserEdit aria-hidden="true" className="h-6 w-6 text-yellow-400" />
                 </div>
-                <h1 className="font-semibold">Sửa thông tin tài khoản {id}</h1>
+                <h1 className="font-semibold">Sửa thông tin tài khoản </h1>
             </DialogTitle>
             <DialogContent>
                 <div className="mt-2 text-left">
@@ -119,7 +112,7 @@ const DialogEdit = (props) => {
                                 type="radio"
                                 id="admin"
                                 name="permission"
-                                value="1"
+                                value="admin"
                                 className="mr-1"
                                 {...register('permission', { required: 'Bạn cần chọn quyền hạn !' })}
                             />
@@ -130,7 +123,7 @@ const DialogEdit = (props) => {
                                 type="radio"
                                 id="user"
                                 name="permission"
-                                value="0"
+                                value="user"
                                 className="mr-1"
                                 {...register('permission', { required: 'Bạn cần chọn quyền hạn !' })}
                             />

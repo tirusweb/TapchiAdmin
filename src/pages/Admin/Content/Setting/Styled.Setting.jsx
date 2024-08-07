@@ -7,7 +7,7 @@ const StyledSetting = styled.div`
     .container {
         background-color: #fff;
         border-radius: 16px;
-        height: calc(72vh);
+        height: calc(84vh);
     }
 `;
 

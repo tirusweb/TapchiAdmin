@@ -1,17 +1,18 @@
+import { apiDeleteUser } from '+/services/Users';
 import { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import axios from 'axios';
 
 const DialogDelete = (props) => {
-    const { handleCloseDialogDelete, selectUser: id, handleLoadData } = props;
+    const { handleCloseDialogDelete, selectedUser, handleLoadData } = props;
+    const token = sessionStorage.getItem('accessToken');
 
     const handleDelete = async () => {
-        await axios
-            .delete(`https://66adcf04b18f3614e3b5efd7.mockapi.io/api/Users/${id}`)
-            .then(() => {
-                handleCloseDialogDelete();
-                handleLoadData();
-            })
-            .catch((err) => console.log('Error fetching delete User: ', err));
+        try {
+            await apiDeleteUser(token, selectedUser.id);
+            handleCloseDialogDelete();
+            handleLoadData();
+        } catch (err) {
+            console.log('Error fetching delete User: ', err);
+        }
     };
 
     return (
@@ -23,21 +24,21 @@ const DialogDelete = (props) => {
                             className="h-6 w-6 text-red-600"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
                             aria-hidden="true"
                         >
                             <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
                             />
                         </svg>
                     </div>
                 </div>
-                <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">
+                <span className="text-base font-semibold leading-6 text-gray-900" id="modal-title">
                     Xóa tài khoản
-                </h3>
+                </span>
             </DialogTitle>
             <DialogContent sx={{ paddingBottom: 1 }}>
                 <DialogContentText>
