@@ -4,9 +4,36 @@ import { BsFillPostcardFill } from 'react-icons/bs';
 import { FiMenu } from 'react-icons/fi';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { LuLogOut } from 'react-icons/lu';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const TabAdmin = (props) => {
     const { activeTab, setActiveTab, onClose } = props;
+
+    const handleLogout = async () => {
+        const token = sessionStorage.getItem('accessToken');
+        console.log('Token before logout:', token);
+
+        try {
+            await axios.put('http://tapchikhcn.uneti.edu.vn/api/user/logout', null, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            // Xóa token
+            sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');
+
+            // Kiểm tra URL hiện tại trước khi điều hướng
+            console.log('Navigating to /login');
+            window.location.href = '/login';
+            onClose(false);
+        } catch (err) {
+            console.log('>>>Error fetching logout: ', err);
+        }
+    };
+
     return (
         <StyledTabAdmin>
             <aside className="container">
@@ -85,7 +112,7 @@ const TabAdmin = (props) => {
                     {/* Thoát */}
                     <div
                         className="mx-7 text-center pb-20 border-t-2 pt-4 text-lg cursor-pointer flex items-center pl-10 gap-2 mb-3 max-sm:pl-6"
-                        onClick={onClose(false)}
+                        onClick={handleLogout}
                     >
                         <LuLogOut />
                         <button>Thoát</button>

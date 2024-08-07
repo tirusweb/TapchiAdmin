@@ -1,13 +1,11 @@
-import Post from '+/pages/Post/Post';
 import Login from '+/pages/Login';
-import Content from '+/pages/Content';
 import AdminPage from '+/pages/Admin';
+import NotFoundPage from '+/pages/NotFoundFage';
 
 const publicRoutes = [
-    { path: '/post', component: Post },
     { path: '/login', component: Login },
-    { path: '/content', component: Content, layout: null },
     { path: '/', component: AdminPage },
+    { path: '*', component: NotFoundPage },
 ];
 
 const privateRoutes = [];

@@ -5,27 +5,50 @@ import { Dialog, useMediaQuery, useTheme } from '@mui/material';
 import StyledUser from './Styled.User';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import DialogCreate from './component/DialogCreate';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DialogEdit from './component/DialogEdit';
 import DialogDelete from './component/DialogDelete';
+import { useDispatch, useSelector } from 'react-redux';
+import { axiosUsers, selectUsers } from '+/reduxToolkit/slides/usersSlide';
+import { format } from 'date-fns';
+import SimplePagination from '+/components/Pagination';
 
 const UserDashboard = () => {
     const [openDialogCreate, setOpenDialogCreate] = useState(false);
     const [openDialogEdit, setOpenDialogEdit] = useState(false);
     const [openDialogDelete, setOpenDialogDelete] = useState(false);
+    const [selectedUser, setSelectedUser] = useState();
+    const [reloadData, setReloadData] = useState();
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+    const dispatch = useDispatch();
+    const users = useSelector(selectUsers);
+    const token = sessionStorage.getItem('accessToken');
+    const currentPage = useSelector((state) => state.usersReducer.currentPage);
+    const pageSize = useSelector((state) => state.usersReducer.pageSize);
+    const totalPages = useSelector((state) => state.usersReducer.totalPages);
 
     const showDialogCreate = () => {
         setOpenDialogCreate(true);
     };
 
-    const showDialogEdit = () => {
-        setOpenDialogEdit(true);
+    const handleNextPage = () => {
+        dispatch(axiosUsers({ token, currentPage: currentPage + 1, pageSize: pageSize }));
     };
 
-    const showDialogDelete = () => {
+    const handlePrevPage = () => {
+        dispatch(axiosUsers({ token, currentPage: currentPage - 1, pageSize: pageSize }));
+    };
+    const showDialogEdit = (user) => {
+        setOpenDialogEdit(true);
+        setSelectedUser(user);
+    };
+
+    const showDialogDelete = (user) => {
         setOpenDialogDelete(true);
+        setSelectedUser(user);
     };
 
     const handleCloseDialogCreate = () => {
@@ -39,6 +62,14 @@ const UserDashboard = () => {
     const handleCloseDialogDelete = () => {
         setOpenDialogDelete(false);
     };
+
+    const handleLoadData = () => {
+        setReloadData(!reloadData);
+    };
+
+    useEffect(() => {
+        dispatch(axiosUsers({ token, currentPage, pageSize }));
+    }, [reloadData, dispatch]);
 
     return (
         <StyledUser>
@@ -87,45 +118,49 @@ const UserDashboard = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">1</td>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                        <div className="flex">dungmickey03@gmail.com</div>
-                                    </td>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-600 whitespace-no-wrap">PhamDung</p>
-                                    </td>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">2019-10-27</p>
-                                    </td>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">Admin</p>
-                                    </td>
-                                    <td className="px-5 border-b border-gray-200 bg-white text-sm">
-                                        <span onClick={showDialogEdit}>
-                                            <ButtonEdit />
-                                        </span>
-                                    </td>
-                                    <td className="px-5 py-2 border-b border-gray-200 bg-white text-sm text-left">
-                                        <span onClick={showDialogDelete}>
-                                            <ButtonDelete />
-                                        </span>
-                                    </td>
-                                </tr>
+                                {users?.map((user, i) => (
+                                    <tr key={i}>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">{user.id}</td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                            <div className="flex">{user.email}</div>
+                                        </td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-600 whitespace-no-wrap">{user.username}</p>
+                                        </td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">
+                                                {format(new Date(user.createdAt), 'dd/MM/yyyy HH:mm:ss')}
+                                            </p>
+                                        </td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">{user.permission}</p>
+                                        </td>
+                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                            <span onClick={() => showDialogEdit(user)}>
+                                                <ButtonEdit />
+                                            </span>
+                                        </td>
+                                        <td className="px-5 py-2 border-b border-gray-200 bg-white text-sm text-left">
+                                            <span onClick={() => showDialogDelete(user)}>
+                                                <ButtonDelete />
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
 
                 {/* Phân trang */}
-                {/* <div className="flex justify-end mr-10 mb-6">
+                <div className="flex justify-end mr-10 mb-6">
                     <SimplePagination
                         currentPage={currentPage}
                         totalPages={totalPages}
                         handleNextPage={handleNextPage}
                         handlePrevPage={handlePrevPage}
                     />
-                </div> */}
+                </div>
             </div>
             {/* Dialog Create User */}
             <Dialog
@@ -136,7 +171,7 @@ const UserDashboard = () => {
                 maxWidth="xs"
                 fullWidth={true}
             >
-                <DialogCreate />
+                <DialogCreate {...{ handleCloseDialogCreate, handleLoadData }} />
             </Dialog>
 
             {/* Dialogg Edit User */}
@@ -148,9 +183,9 @@ const UserDashboard = () => {
                 maxWidth="xs"
                 fullWidth={true}
             >
-                <DialogEdit />
+                <DialogEdit {...{ handleCloseDialogEdit, selectedUser, handleLoadData }} />
             </Dialog>
-
+            {/* Dialogg Delete User */}
             <Dialog
                 open={openDialogDelete}
                 onClose={handleCloseDialogDelete}
@@ -159,7 +194,7 @@ const UserDashboard = () => {
                 maxWidth="xs"
                 fullWidth={true}
             >
-                <DialogDelete />
+                <DialogDelete {...{ handleCloseDialogDelete, selectedUser, handleLoadData }} />
             </Dialog>
         </StyledUser>
     );
