@@ -167,19 +167,25 @@ const HomeDashboard = () => {
                             <div class="font-semibold mb-2">Bài viết có lượt xem nhiều nhất</div>
                             <table class="min-w-full">
                                 <thead>
-                                    <tr className=''>
-                                        <th className='w-[20px]'>#</th>
-                                        <th className="text-left ml-2 w-[200px]">Bài đăng</th>
-                                        <th className="text-left">Lượt xem</th>
+                                    <tr className="">
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-1">
+                                            #
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-[200px] ">
+                                            Bài đăng
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider flex-1">
+                                            Lượt xem
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr className="mt-2">
                                         <td className="text-center">1</td>
-                                        <td className="text-left ">Tạp chí KHCN Số 41</td>
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
                                         <td className=" font-semibold  text-white text-left">
-                                            <div className="w-full text-left flex align-left justify-start ">
-                                                <p className="bg-purple-400 rounded text-left w-auto pl-1 pr-1 h-full">
+                                            <div className="w-full text-center flex align-center justify-around ">
+                                                <p className="bg-purple-400 rounded text-center w-auto pl-1 pr-1 h-full">
                                                     991
                                                 </p>
                                             </div>
@@ -187,10 +193,10 @@ const HomeDashboard = () => {
                                     </tr>
                                     <tr className="mt-2">
                                         <td className="text-center">1</td>
-                                        <td className="text-left ">Tạp chí KHCN Số 41</td>
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
                                         <td className=" font-semibold  text-white text-left">
-                                            <div className="w-full text-left flex align-left justify-start ">
-                                                <p className="bg-purple-400 rounded text-left w-auto pl-1 pr-1 h-full">
+                                            <div className="w-full text-center flex align-center justify-around ">
+                                                <p className="bg-purple-400 rounded text-center w-auto pl-1 pr-1 h-full">
                                                     991
                                                 </p>
                                             </div>
@@ -198,10 +204,10 @@ const HomeDashboard = () => {
                                     </tr>
                                     <tr className="mt-2">
                                         <td className="text-center">1</td>
-                                        <td className="text-left ">Tạp chí KHCN Số 41</td>
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
                                         <td className=" font-semibold  text-white text-left">
-                                            <div className="w-full text-left flex align-left justify-start ">
-                                                <p className="bg-purple-400 rounded text-left w-auto pl-1 pr-1 h-full">
+                                            <div className="w-full text-center flex align-center justify-around ">
+                                                <p className="bg-purple-400 rounded text-center w-auto pl-1 pr-1 h-full">
                                                     991
                                                 </p>
                                             </div>
@@ -218,18 +224,24 @@ const HomeDashboard = () => {
                             <table class="min-w-full">
                                 <thead>
                                     <tr>
-                                        <th className='w-[20px]'>#</th>
-                                        <th className="text-left ml-2 w-[180px]">Bài đăng</th>
-                                        <th className="text-left">Bình Luận</th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                            #
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-[180px]">
+                                            Bài đăng
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                            Bình Luận
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr className="mt-2">
                                         <td className="text-center">1</td>
-                                        <td className="text-left ">Tạp chí KHCN Số 41</td>
-                                        <td className=" font-semibold  text-white text-left">
-                                            <div className="w-full text-left flex align-left justify-start ">
-                                                <p className="bg-green-400 rounded text-left w-auto pl-1 pr-1 h-full">
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
+                                        <td className=" font-semibold  text-white text-center">
+                                            <div className="w-full text-center flex align-center justify-around ">
+                                                <p className="bg-green-400 rounded text-center w-auto pl-1 pr-1 h-full">
                                                     91
                                                 </p>
                                             </div>
@@ -237,10 +249,10 @@ const HomeDashboard = () => {
                                     </tr>
                                     <tr className="mt-2">
                                         <td className="text-center">1</td>
-                                        <td className="text-left ">Tạp chí KHCN Số 41</td>
-                                        <td className=" font-semibold  text-white text-left">
-                                            <div className="w-full text-left flex align-left justify-start ">
-                                                <p className="bg-green-400 rounded text-left w-auto pl-1 pr-1 h-full">
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
+                                        <td className=" font-semibold  text-white text-center">
+                                            <div className="w-full text-center flex align-center justify-around ">
+                                                <p className="bg-green-400 rounded text-center w-auto pl-1 pr-1 h-full">
                                                     91
                                                 </p>
                                             </div>
@@ -248,10 +260,10 @@ const HomeDashboard = () => {
                                     </tr>
                                     <tr className="mt-2">
                                         <td className="text-center">1</td>
-                                        <td className="text-left ">Tạp chí KHCN Số 41</td>
-                                        <td className=" font-semibold  text-white text-left">
-                                            <div className="w-full text-left flex align-left justify-start ">
-                                                <p className="bg-green-400 rounded text-left w-auto pl-1 pr-1 h-full">
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
+                                        <td className=" font-semibold  text-white text-center">
+                                            <div className="w-full text-center flex align-center justify-around ">
+                                                <p className="bg-green-400 rounded text-center w-auto pl-1 pr-1 h-full">
                                                     91
                                                 </p>
                                             </div>
@@ -264,21 +276,36 @@ const HomeDashboard = () => {
                     <div>
                         <div class="bg-white p-4 rounded shadow-md mb-4">
                             <div class="font-semibold mb-2">Bình Luận</div>
-                            <table class="min-w-full">
+                            <table class="min-w-full leading-normal">
                                 <thead>
                                     <tr>
-                                        <th className='text-left '>#</th>
-                                        <th className='text-left '>Người dùng</th>
-                                        <th className='text-left '>Bình luận</th>
-                                        <th className='text-left '>Trạng Thái</th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                            #
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-[100px]">
+                                            Người dùng
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                            Bình luận
+                                        </th>
+                                        <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                            Trạng Thái
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {/* <tr>
-                                        <td>1</td>
-                                        <td>Tạp chí NCKH Số 11</td>
-                                        <td>0</td>
-                                    </tr> */}
+                                    <tr className="mt-2">
+                                        <td className="text-center">1</td>
+                                        <td className="text-center ">Tạp chí KHCN Số 41</td>
+                                        <td className=" font-semibold  text-center">
+                                            <div className="w-full text-center text-white flex align-center justify-around ">
+                                                <p className="bg-green-400 rounded text-center w-auto pl-1 pr-1 h-full">
+                                                    91
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>Hoạt Động</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
