@@ -84,11 +84,11 @@ const Login = () => {
                                             <p className="text-red-500 text-xs">{errors.password.message}</p>
                                         )}
                                     </div>
-                                    {/* {error && <p>Error: {error}</p>} */}
+                                    {error && <p className="text-red-500 text-xs">{error}</p>}
                                     {/* Button */}
                                     <div className="flex flex-col gap-4">
                                         <div className="flex justify-end">
-                                            <a href="/" className="forget font-medium">
+                                            <a href="/forgot-password" className="forget font-medium">
                                                 Quên mật khẩu?
                                             </a>
                                         </div>
@@ -112,7 +112,7 @@ const Login = () => {
                         </div>
 
                         <div className="col-span-7 max-sm:hidden">
-                            <img src={banner_blog} className="h-full rounded-xl" alt="Banner Blog" />
+                            <img src={banner_blog} className="h-full w-full rounded-xl" alt="Banner Blog" />
                         </div>
                     </div>
                 </section>
@@ -130,15 +130,20 @@ const StyleLoginPage = styled('div')({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
     },
 
     '.login_form': {
         color: '#4a5569',
-        maxWidth: 400,
         margin: 'auto',
+        maxWidth: 500,
     },
     '.forget': {
         color: '#376de9',
+        textDecoration: 'none', // Loại bỏ gạch chân
+        '&:hover': {
+            textDecoration: 'underline', // Gạch chân khi hover
+        },
     },
 
     '.link_signUp': {
@@ -147,7 +152,16 @@ const StyleLoginPage = styled('div')({
 
     '.btn_submit': {
         backgroundColor: '#2d65c3',
-        boxShadow: '0 2px 0 rgba(5, 138, 255, 0.06)',
+        color: '#fff',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease',
+        '&:hover': {
+            backgroundColor: '#1a4b8b',
+        },
+        '&:disabled': {
+            backgroundColor: '#8a9ab6',
+        },
     },
 });
 

@@ -8,9 +8,13 @@ const initialState = {
     error: null,
 };
 
-export const axiosLogin = createAsyncThunk('login/loginUser', async (data) => {
+export const axiosLogin = createAsyncThunk('login/loginUser', async (data, { rejectWithValue }) => {
     try {
         const response = await apiLogin(data);
+
+        if (response.data.code === 400) {
+            return response.data.message;
+        }
         return response.data;
     } catch (err) {
         console.log('>>> Error fetching login: ', err);
@@ -20,7 +24,11 @@ export const axiosLogin = createAsyncThunk('login/loginUser', async (data) => {
 const loginSlice = createSlice({
     name: 'login',
     initialState,
-    reducers: {},
+    reducers: {
+        clearError: (state) => {
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(axiosLogin.pending, (state) => {
@@ -31,9 +39,14 @@ const loginSlice = createSlice({
                 state.loading = false;
                 state.accessToken = action.payload?.accessToken;
                 state.refreshToken = action.payload?.refreshToken;
-                state.error = null;
-                sessionStorage.setItem('accessToken', action?.payload?.accessToken);
-                sessionStorage.setItem('refreshToken', action?.payload?.refreshToken);
+
+                if (action?.payload?.accessToken && action?.payload?.refreshToken) {
+                    sessionStorage.setItem('accessToken', action?.payload?.accessToken);
+                    sessionStorage.setItem('refreshToken', action?.payload?.refreshToken);
+                } else {
+                    state.error = action.payload;
+                    console.log('error:', action.payload);
+                }
             })
             .addCase(axiosLogin.rejected, (state, action) => {
                 state.loading = false;
