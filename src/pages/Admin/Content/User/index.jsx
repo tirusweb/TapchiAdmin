@@ -69,7 +69,7 @@ const UserDashboard = () => {
 
     useEffect(() => {
         dispatch(axiosUsers({ token, currentPage, pageSize }));
-    }, [reloadData, dispatch]);
+    }, [reloadData, dispatch, currentPage, token, pageSize]);
 
     return (
         <StyledUser>
@@ -80,7 +80,7 @@ const UserDashboard = () => {
                     <ButtonCreate name={'New user'} />
                 </div>
             </div>
-            <div className="bg-blue-300 mt-6 py-2 flex justify-around items-center rounded-2xl">
+            <div className="bg-blue-300 mt-5 py-2 flex justify-around items-center rounded-2xl">
                 <h2 className="text-xl text-white font-semibold">Danh sách User</h2>
 
                 {/* thanh sreach */}
@@ -93,7 +93,7 @@ const UserDashboard = () => {
             </div>
             <div className="flex flex-col justify-between mt-4 container mx-auto px-4 sm:px-8 relative">
                 {/* Table */}
-                <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-3 overflow-x-auto">
+                <div className="-mx-4 sm:-mx-8 px-3 sm:px-8 py-3 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                         <table className="min-w-full leading-normal">
                             <thead>
@@ -119,28 +119,28 @@ const UserDashboard = () => {
                             </thead>
                             <tbody>
                                 {users?.map((user, i) => (
-                                    <tr key={i}>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">{user.id}</td>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                    <tr key={i} className="hover:bg-slate-100">
+                                        <td className="px-5 border-b border-gray-200  text-sm">{user.id}</td>
+                                        <td className="px-5 border-b border-gray-200  text-sm">
                                             <div className="flex">{user.email}</div>
                                         </td>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 border-b border-gray-200 text-sm">
                                             <p className="text-gray-600 whitespace-no-wrap">{user.username}</p>
                                         </td>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 border-b border-gray-200 text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">
                                                 {format(new Date(user.createdAt), 'dd/MM/yyyy HH:mm:ss')}
                                             </p>
                                         </td>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 border-b border-gray-200 text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">{user.permission}</p>
                                         </td>
-                                        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 border-b border-gray-200 text-sm">
                                             <span onClick={() => showDialogEdit(user)}>
                                                 <ButtonEdit />
                                             </span>
                                         </td>
-                                        <td className="px-5 py-2 border-b border-gray-200 bg-white text-sm text-left">
+                                        <td className="px-5 py-2 border-b border-gray-200 text-sm text-left">
                                             <span onClick={() => showDialogDelete(user)}>
                                                 <ButtonDelete />
                                             </span>
