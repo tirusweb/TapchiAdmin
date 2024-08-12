@@ -1,39 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import EditCategoryModal from './EditComponent/update';
 import CreateCategoryModal from './EditComponent/CreateCategoryModal'; // Ensure correct path
+import {fetchAllCatehory} from '+/services/Category/Category'
+
 
 const CategoryDashboard = () => {
     const [categories, setCategories] = useState([
-        {
-            id: 1,
-            name: 'Tạp chí khoa học và công nghệ Trường Đại Học Kinh Tế Kỹ Thuật Công nghiệp-Màn Kinh Tế Xã hội',
-            type: 'Khoa học - Công nghệ',
-        },
-        {
-            id: 2,
-            name: 'Tạp chí khoa học và công nghệ Trường Đại Học Kinh Tế Kỹ Thuật Công nghiệp-Màn diễn đàn khoa học',
-            type: 'Khoa học - Công nghệ',
-        },
-        {
-            id: 3,
-            name: 'Thông báo',
-            type: 'Văn hóa - Xã hội',
-        },
-        {
-            id: 4,
-            name: 'Sự kiện',
-            type: 'Kinh tế - Kinh doanh',
-        },
-        {
-            id: 5,
-            name: 'Giới thiệu',
-            type: 'Giáo dục',
-        },
+        // {
+        //     id: 1,
+        //     name: 'Tạp chí khoa học và công nghệ Trường Đại Học Kinh Tế Kỹ Thuật Công nghiệp-Màn Kinh Tế Xã hội',
+        //     type: 'Khoa học - Công nghệ',
+        // },
+        // {
+        //     id: 2,
+        //     name: 'Tạp chí khoa học và công nghệ Trường Đại Học Kinh Tế Kỹ Thuật Công nghiệp-Màn diễn đàn khoa học',
+        //     type: 'Khoa học - Công nghệ',
+        // },
+        // {
+        //     id: 3,
+        //     name: 'Thông báo',
+        //     type: 'Văn hóa - Xã hội',
+        // },
+        // {
+        //     id: 4,
+        //     name: 'Sự kiện',
+        //     type: 'Kinh tế - Kinh doanh',
+        // },
+        // {
+        //     id: 5,
+        //     name: 'Giới thiệu',
+        //     type: 'Giáo dục',
+        // },
     ]);
+
+    useEffect(() => {
+        getCategory();
+    }, []);
+
+    const getCategory = async () =>{
+        let response = await fetchAllCatehory();
+        if(response && response.data && response.data.data){
+            setCategories(response.data.data)
+        }
+      
+    }
+    console.log(categories);
+
+
+    
+    
+    
 
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [nextId, setNextId] = useState(categories.length + 1); // Track the next ID to be used
+    const [nextId, setNextId] = useState(categories.length + 1); 
 
     const handleDelete = (id) => {
         setCategories(categories.filter((category) => category.id !== id));
@@ -46,7 +66,7 @@ const CategoryDashboard = () => {
     const handleCreate = (newCategory) => {
         newCategory.id = nextId;
         setCategories([...categories, newCategory]);
-        setNextId(nextId + 1); // Increment the next ID
+        setNextId(nextId + 1); 
     };
 
     const openEditModal = (category) => {
@@ -98,29 +118,26 @@ const CategoryDashboard = () => {
                     <table className="min-w-full bg-white rounded shadow-lg leading-normal">
                             <thead>
                                 <tr>
-                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"> #</th>
-                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Name</th>
-                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Type</th> {/* Add Type header */}
-                                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Setting</th>
+                                    <th className=" text-blue-500 px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold uppercase tracking-wider"> #</th>
+                                    <th className=" text-blue-500 px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold uppercase tracking-wider w-[500px]">Name</th>
+                                    <th className=" text-blue-500 px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold uppercase tracking-wider">Setting</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {categories.map((category) => (
-                                    <tr className="odd:bg-gray-100" key={category.id}>
+                                {categories.map((category , index) => (
+                                    <tr className="odd:bg-gray-100" key={`category-${index}`}>
                                         <td className="border-none px-4 py-2">{category.id}</td>
                                         <td className="border-none px-4 py-2 text-gray-600">{category.name}</td>
-                                        <td className="border-none px-4 py-2 text-gray-600">{category.type}</td>{' '}
-                                        {/* Add Type data */}
-                                        <td className="border-none px-4 py-2 flex justify-end gap-2">
+                                        <td className="border-none px-4 py-2 flex justify-start gap-2">
                                             <button
                                                 onClick={() => openEditModal(category)}
-                                                className="bg-blue-400 font-normal px-4 py-2 text-xs hover:bg-blue-500 text-white rounded"
+                                                className="bg-blue-400 uppercase font-normal px-4 py-2 text-xs hover:bg-blue-500 text-white rounded"
                                             >
                                                 UPDATE
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(category.id)}
-                                                className="bg-red-400 text-xs hover:bg-red-500 px-4 py-2 text-white font-normal rounded"
+                                                className="bg-red-400 uppercase text-xs hover:bg-red-500 px-4 py-2 text-white font-normal rounded"
                                             >
                                                 DELETE
                                             </button>

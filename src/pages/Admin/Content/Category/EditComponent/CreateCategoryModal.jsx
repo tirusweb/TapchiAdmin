@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 const CreateCategoryModal = ({ onClose, onCreate }) => {
     const [categoryName, setCategoryName] = useState('');
-    const [categoryType, setCategoryType] = useState(''); // Initialize the state for category type
+    const [categoryType, setCategoryType] = useState(''); 
 
     const handleCreate = () => {
         if (categoryName.trim() === '' || categoryType.trim() === '') return;
 
         const newCategory = {
             name: categoryName,
-            type: categoryType, // Add the type to the new category object
+            type: categoryType, 
         };
 
         onCreate(newCategory);

@@ -1,92 +1,51 @@
-import React, { useState } from 'react';
-import Banner from '../Banner/Banner';
-import FileUpload from '../File/File'; // Assuming the new component is placed here
-// import apiCreatePost from '+/services/PostApi/Post';
+import React, { useState, useEffect } from 'react';
+import Banner from '../Banner/Banner'; // Assuming Banner is in the same directory
 
-
-const CreatePost = ({ onCreate, onBack }) => {
-    const [newPost, setNewPost] = useState({
-        id: Date.now(),
-        name: '',
-        title: '',
-        view: '',
-        status: '',
-        userPost: '',
-        code: '',
-    });
-
-    // const handleCreatePost = async () =>{
-    //     let res = await apiCreatePost(newPost);
-    //     console.log("dataa" , res);
-    // }
+const UpdatePost = ({ post, onUpdate, onClose }) => {
+    const [updatedPost, setUpdatedPost] = useState({ ...post });
     const [showBanner, setShowBanner] = useState(false);
-    const [showFileUpload, setShowFileUpload] = useState(false);
+
+    useEffect(() => {
+        setUpdatedPost({ ...post });
+    }, [post]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setNewPost((prev) => ({
+        setUpdatedPost((prev) => ({
             ...prev,
             [name]: value,
         }));
     };
 
     const handleAddImage = () => {
+        console.log("Thêm ảnh button clicked"); // Debugging line
         setShowBanner(true);
-    };
-
-    const handleAddFile = () => {
-        setShowFileUpload(true);
     };
 
     const handleBackToPost = () => {
         setShowBanner(false);
-        setShowFileUpload(false);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onCreate(newPost);
+        onUpdate(updatedPost);
+        onClose();
     };
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-lg">
             {showBanner ? (
                 <Banner onBack={handleBackToPost} />
-            ) : showFileUpload ? (
-                <FileUpload onBack={handleBackToPost} />
             ) : (
                 <>
-                    <div className="flex items-center justify-between ">
-                        <div className=" mt-0 flex items-center justify-start">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="size-4"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                                />
-                            </svg>
-                            <button onClick={onBack} className=" mb-4 pl-1 pt-4 rounded">
-                                Back
-                            </button>
-                        </div>
-                        <div className="flex items-center justify-start">
-                            <h2 className="text-1xl ml-1 font-bold uppercase">tạo bài viết</h2>
-                        </div>
-                    </div>
+                    <h2 className="text-xl font-semibold mb-4">Cập Nhật Bài Viết</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="block mb-1">Tiêu đề</label>
                             <input
                                 type="text"
                                 name="name"
-                                value={newPost.name}
+                                value={updatedPost.name}
                                 onChange={handleChange}
                                 placeholder="Nhập tiêu đề bài viết ..."
                                 className="border p-2 w-full"
@@ -97,7 +56,7 @@ const CreatePost = ({ onCreate, onBack }) => {
                             <label className="block mb-1">Danh mục</label>
                             <select
                                 name="title"
-                                value={newPost.title}
+                                value={updatedPost.title}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
                                 required
@@ -113,7 +72,7 @@ const CreatePost = ({ onCreate, onBack }) => {
                             <input
                                 type="date"
                                 name="view"
-                                value={newPost.view}
+                                value={updatedPost.view}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
                             />
@@ -122,7 +81,7 @@ const CreatePost = ({ onCreate, onBack }) => {
                             <label className="block mb-1">Tóm tắt</label>
                             <textarea
                                 name="status"
-                                value={newPost.status}
+                                value={updatedPost.status}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
                                 rows="3"
@@ -132,7 +91,7 @@ const CreatePost = ({ onCreate, onBack }) => {
                             <label className="block mb-1">Bài Viết</label>
                             <textarea
                                 name="userPost"
-                                value={newPost.userPost}
+                                value={updatedPost.userPost}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
                                 rows="5"
@@ -143,7 +102,7 @@ const CreatePost = ({ onCreate, onBack }) => {
                             <input
                                 type="text"
                                 name="code"
-                                value={newPost.code}
+                                value={updatedPost.code}
                                 onChange={handleChange}
                                 className="border p-2 w-full"
                             />
@@ -151,21 +110,29 @@ const CreatePost = ({ onCreate, onBack }) => {
                         <div className="flex justify-start items-center">
                             <button
                                 type="submit"
-                                className="bg-blue-500 font-normal shadow-xl px-4 py-2 text-xs hover:bg-blue-500 text-white rounded uppercase"
+                                className="bg-blue-500 ml-4 text-white px-4 py-2 rounded"
                             >
-                                Tạo bài viết
+                                Cập Nhật
                             </button>
                             <button
+                                type="button"
                                 onClick={handleAddImage}
-                                className="bg-blue-500 ml-2 font-normal shadow-xl px-4 py-2 text-xs hover:bg-blue-500 text-white rounded uppercase"
+                                className="bg-blue-500 ml-4 text-white px-4 py-2 rounded"
                             >
-                                Thêm ảnh
+                                Chi tiết ảnh
                             </button>
                             <button
-                                onClick={handleAddFile}
-                                className="bg-blue-500 ml-2 font-normal shadow-xl px-4 py-2 text-xs hover:bg-blue-500 text-white rounded uppercase"
+                                type="button"
+                                className="bg-blue-500 ml-4 text-white px-4 py-2 rounded"
                             >
-                                Thêm file
+                                Chi tiết file
+                            </button>
+                            <button
+                                type="button"
+                                onClick={onClose}
+                                className="bg-gray-500 ml-4 text-white px-4 py-2 rounded"
+                            >
+                                Hủy
                             </button>
                         </div>
                     </form>
@@ -175,4 +142,4 @@ const CreatePost = ({ onCreate, onBack }) => {
     );
 };
 
-export default CreatePost;
+export default UpdatePost;

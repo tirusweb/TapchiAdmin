@@ -1,5 +1,6 @@
 import Login from '+/pages/Login';
 import AdminPage from '+/pages/Admin';
+
 import NotFoundPage from '+/pages/NotFoundFage';
 import ForgotPassword from '+/pages/ForgotPassword';
 import VerifyOTP from '+/pages/verifyOTP';
