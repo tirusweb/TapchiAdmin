@@ -27,13 +27,11 @@ http.interceptors.response.use(
 
             const refreshToken = sessionStorage.getItem('refreshToken');
             if (!refreshToken) {
-                // No refresh token available
                 window.location.href = '/login';
                 return Promise.reject(error);
             }
 
             try {
-                // Correctly pass refreshToken as params
                 const response = await axios.put('http://tapchikhcn.uneti.edu.vn/api/user/refresh-token', {
                     params: { token: refreshToken },
                 });
