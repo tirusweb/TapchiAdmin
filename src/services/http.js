@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const http = axios.create({
-   // baseURL: `http://tapchikhcn.uneti.edu.vn/api/`,
-    baseURL: `https://7f7f-14-181-209-97.ngrok-free.app`
+    baseURL: `http://tapchikhcn.uneti.edu.vn/api/`,
+    // baseURL: `https://7f7f-14-181-209-97.ngrok-free.app`
 });
 
 http.interceptors.request.use(
@@ -33,7 +33,7 @@ http.interceptors.response.use(
             }
 
             try {
-                const response = await axios.put('http://tapchikhcn.uneti.edu.vn/api/user/refresh-token', {
+                const response = await axios.put('http://tapchikhcn.uneti.edu.vn/api/user/refresh-token', null, {
                     params: { token: refreshToken },
                 });
 
