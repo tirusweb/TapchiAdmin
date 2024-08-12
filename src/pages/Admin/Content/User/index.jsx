@@ -25,7 +25,6 @@ const UserDashboard = () => {
 
     const dispatch = useDispatch();
     const users = useSelector(selectUsers);
-    const token = sessionStorage.getItem('accessToken');
     const currentPage = useSelector((state) => state.usersReducer.currentPage);
     const pageSize = useSelector((state) => state.usersReducer.pageSize);
     const totalPages = useSelector((state) => state.usersReducer.totalPages);
@@ -35,11 +34,11 @@ const UserDashboard = () => {
     };
 
     const handleNextPage = () => {
-        dispatch(axiosUsers({ token, currentPage: currentPage + 1, pageSize: pageSize }));
+        dispatch(axiosUsers({ currentPage: currentPage + 1, pageSize: pageSize }));
     };
 
     const handlePrevPage = () => {
-        dispatch(axiosUsers({ token, currentPage: currentPage - 1, pageSize: pageSize }));
+        dispatch(axiosUsers({ currentPage: currentPage - 1, pageSize: pageSize }));
     };
     const showDialogEdit = (user) => {
         setOpenDialogEdit(true);
@@ -68,8 +67,8 @@ const UserDashboard = () => {
     };
 
     useEffect(() => {
-        dispatch(axiosUsers({ token, currentPage, pageSize }));
-    }, [reloadData, dispatch, currentPage, token, pageSize]);
+        dispatch(axiosUsers({ currentPage, pageSize }));
+    }, [reloadData, dispatch, currentPage, pageSize]);
 
     return (
         <StyledUser>

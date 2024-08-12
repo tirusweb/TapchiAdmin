@@ -23,8 +23,7 @@ const DialogEdit = (props) => {
             active: true,
         };
         try {
-            const token = sessionStorage.getItem('accessToken');
-            await apiEditUser(token, selectedUser.id, newData);
+            await apiEditUser(selectedUser.id, newData);
             handleCloseDialogEdit();
             handleLoadData();
         } catch (err) {
@@ -47,7 +46,7 @@ const DialogEdit = (props) => {
         setValue('email', selectedUser.email);
         setValue('username', selectedUser.username);
         setValue('permission', selectedUser.permission);
-    }, []);
+    }, [selectedUser.email, selectedUser.username, selectedUser.permission, setValue]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit, onError)}>
