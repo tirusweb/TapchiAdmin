@@ -1,5 +1,6 @@
 import Login from '+/pages/Login';
 import AdminPage from '+/pages/Admin';
+
 import NotFoundPage from '+/pages/NotFoundFage';
 
 const publicRoutes = [
