@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import TabAdmin from './Tabs/TabAdmin';
 import { Catrgory, Comment, Home, Menu, Post, Setting, User } from './Content';
-import { Button, Drawer } from '@mui/material';
+import { Button, Drawer, useMediaQuery } from '@mui/material';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
     const [activeTab, setActiveTab] = useState('home');
-    const [isMobileView, setIsMobileView] = useState(false);
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+    const isMobileView = useMediaQuery('(max-width: 830px)');
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -44,18 +44,7 @@ const AdminPage = () => {
         if (!token) {
             navigate('/login');
         }
-
-        const handleResize = () => {
-            setIsMobileView(window.innerWidth <= 830);
-        };
-
-        handleResize(); // Kiểm tra kích thước màn hình ban đầu
-
-        window.addEventListener('resize', handleResize); // Thêm sự kiện lắng nghe resize
-        return () => {
-            window.removeEventListener('resize', handleResize); // Xóa sự kiện khi component bị unmount
-        };
-    }, []);
+    }, [token, navigate]);
 
     return (
         <StyledAdminPage>
@@ -90,7 +79,7 @@ const AdminPage = () => {
 
 const StyledAdminPage = styled.div`
     .box_content {
-        background-color: #f2f5f7;
+        background-color: #ecedf4;
     }
 `;
 

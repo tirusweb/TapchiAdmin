@@ -4,7 +4,6 @@ import { BsFillPostcardFill } from 'react-icons/bs';
 import { FiMenu } from 'react-icons/fi';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { LuLogOut } from 'react-icons/lu';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const TabAdmin = (props) => {
@@ -12,8 +11,6 @@ const TabAdmin = (props) => {
 
     const handleLogout = async () => {
         const token = sessionStorage.getItem('accessToken');
-        console.log('Token before logout:', token);
-
         try {
             await axios.put('http://tapchikhcn.uneti.edu.vn/api/user/logout', null, {
                 headers: {
@@ -21,12 +18,8 @@ const TabAdmin = (props) => {
                 },
             });
 
-            // Xóa token
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');
-
-            // Kiểm tra URL hiện tại trước khi điều hướng
-            console.log('Navigating to /login');
             window.location.href = '/login';
             onClose(false);
         } catch (err) {
@@ -38,80 +31,115 @@ const TabAdmin = (props) => {
         <StyledTabAdmin>
             <aside className="container">
                 <div className="flex flex-col justify-between h-screen">
-                    <div className="pt-5 text-center mr-5">
+                    <div className="pt-5 text-center mx-5">
                         {/* Trang chủ */}
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12  ${
-                                activeTab === 'home' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start hover:bg-slate-100 pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12  ${
+                                activeTab === 'home'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('home');
+                            }}
                         >
                             <FaHome />
-                            <button onClick={() => setActiveTab('home')}>Trang chủ</button>
+                            <button>Trang chủ</button>
                         </div>
                         {/* Thể loại */}
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
-                                activeTab === 'category' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start pl-16 hover:bg-slate-100 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
+                                activeTab === 'category'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('category');
+                            }}
                         >
                             <FaClipboardList />
-                            <button onClick={() => setActiveTab('category')}>Thể loại</button>
+                            <button>Thể loại</button>
                         </div>
                         {/* Bài đăng */}
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
-                                activeTab === 'post' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start hover:bg-slate-100 pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
+                                activeTab === 'post'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('post');
+                            }}
                         >
                             <BsFillPostcardFill />
-                            <button onClick={() => setActiveTab('post')}>Bài đăng</button>
+                            <button>Bài đăng</button>
                         </div>
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
-                                activeTab === 'comment' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start hover:bg-slate-100 pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
+                                activeTab === 'comment'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('comment');
+                            }}
                         >
                             <FaComments />
-                            <button onClick={() => setActiveTab('comment')}>Bình luận</button>
+                            <button>Bình luận</button>
                         </div>
                         {/* Menu */}
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
-                                activeTab === 'menu' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start hover:bg-slate-100 pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
+                                activeTab === 'menu'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('menu');
+                            }}
                         >
                             <FiMenu />
-                            <button onClick={() => setActiveTab('menu')}>Menu</button>
+                            <button>Menu</button>
                         </div>
                         {/* Người dùng */}
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
-                                activeTab === 'user' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start hover:bg-slate-100 pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
+                                activeTab === 'user'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('user');
+                            }}
                         >
                             <FaUsers />
-                            <button onClick={() => setActiveTab('user')}>Người dùng</button>
+                            <button>Người dùng</button>
                         </div>
                         {/* Cài đặt */}
                         <div
-                            className={`flex items-center justify-start pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
-                                activeTab === 'setting' ? 'text-blue-600 font-bold' : 'text-slate-400'
+                            className={`flex items-center justify-start hover:bg-slate-100 pl-16 gap-2 mb-3 py-2 rounded-xl max-sm:pl-12 ${
+                                activeTab === 'setting'
+                                    ? 'text-blue-600 font-bold bg-blue-200 hover:bg-blue-200'
+                                    : 'text-slate-400'
                             }`}
-                            onClick={onClose(false)}
+                            onClick={() => {
+                                onClose(false);
+                                setActiveTab('setting');
+                            }}
                         >
                             <IoSettingsSharp />
-                            <button onClick={() => setActiveTab('setting')}>Cài đặt</button>
+                            <button>Cài đặt</button>
                         </div>
                     </div>
                     {/* Thoát */}
                     <div
-                        className="mx-7 text-center pb-20 border-t-2 pt-4 text-lg cursor-pointer flex items-center pl-10 gap-2 mb-3 max-sm:pl-6"
+                        className="mx-7 text-center pb-20 border-t-2 pt-4 text-lg cursor-pointer flex items-center pl-14 gap-2 mb-3 max-sm:pl-6"
                         onClick={handleLogout}
                     >
                         <LuLogOut />
