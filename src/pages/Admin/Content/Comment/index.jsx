@@ -3,8 +3,22 @@ import ButtonDelete from '+/components/Button/DeleteButton';
 import ButtonEdit from '+/components/Button/EditButton';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import StyledCommentDashboard from './Styled.Comment';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const CommentDashboard = () => {
+    const token = sessionStorage.getItem('refreshToken');
+    useEffect(() => {
+        axios
+            .put(`http://tapchikhcn.uneti.edu.vn/api/user/refresh-token?token=${token}`)
+            .then((res) => {
+                console.log('>>>Res: ', res);
+            })
+            .catch((err) => {
+                console.log('>>>ERR: ', err);
+            });
+    }, []);
+
     return (
         <StyledCommentDashboard>
             <div className="flex justify-between items-center">

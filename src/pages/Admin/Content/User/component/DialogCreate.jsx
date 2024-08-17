@@ -6,7 +6,6 @@ import { apiCreateUser } from '../../../../../services/Users';
 
 const DialogCreate = (props) => {
     const { handleCloseDialogCreate, handleLoadData } = props;
-    const token = sessionStorage.getItem('accessToken');
     const {
         register,
         handleSubmit,
@@ -28,7 +27,7 @@ const DialogCreate = (props) => {
         };
         console.log(newData);
         try {
-            await apiCreateUser(newData, token);
+            await apiCreateUser(newData);
             handleCloseDialogCreate();
             handleLoadData();
         } catch (err) {

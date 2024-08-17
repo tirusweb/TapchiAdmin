@@ -3,11 +3,10 @@ import { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@m
 
 const DialogDelete = (props) => {
     const { handleCloseDialogDelete, selectedUser, handleLoadData } = props;
-    const token = sessionStorage.getItem('accessToken');
 
     const handleDelete = async () => {
         try {
-            await apiDeleteUser(token, selectedUser.id);
+            await apiDeleteUser(selectedUser.id);
             handleCloseDialogDelete();
             handleLoadData();
         } catch (err) {
