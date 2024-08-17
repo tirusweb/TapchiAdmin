@@ -8,7 +8,7 @@ const initialState = {
     error: null,
 };
 
-export const axiosLogin = createAsyncThunk('login/loginUser', async (data, { rejectWithValue }) => {
+export const axiosLogin = createAsyncThunk('logins/loginUser', async (data, { rejectWithValue }) => {
     try {
         const response = await apiLogin(data);
 

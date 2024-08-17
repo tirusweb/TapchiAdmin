@@ -42,7 +42,7 @@ const AdminPage = () => {
 
     useEffect(() => {
         if (!token) {
-            navigate('/login');
+            navigate('/logins');
         }
     }, [token, navigate]);
 

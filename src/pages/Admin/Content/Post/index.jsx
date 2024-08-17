@@ -3,6 +3,7 @@ import CreatePost from './EditPost/Create';
 import UpdatePost from './EditPost/Update';
 import DeletePost from './EditPost/DeletePost';
 import { apiGetPost } from '+/services/PostApi/Post';
+import Pagination from '+/components/Pagination/Pagination'; // Import the new Pagination component
 
 const PostDashboard = () => {
     const [postList, setPosts] = useState([]);
@@ -75,18 +76,6 @@ const PostDashboard = () => {
     const handleClose = () => {
         setEditingPost(null);
         setShowCreatePost(false);
-    };
-
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
     };
 
     const handleAddBreakingNews = (id) => {
@@ -194,25 +183,11 @@ const PostDashboard = () => {
                         </tbody>
                     </table>
 
-                    <div className="flex justify-between items-center mt-4">
-                        <button
-                            onClick={handlePreviousPage}
-                            disabled={currentPage === 1}
-                            className="bg-gray-300 text-xs hover:bg-gray-400 text-black font-normal px-4 py-2 rounded"
-                        >
-                            Previous
-                        </button>
-                        <span className="text-xs font-normal">
-                            Page {currentPage} of {totalPages}
-                        </span>
-                        <button
-                            onClick={handleNextPage}
-                            disabled={currentPage === totalPages}
-                            className="bg-gray-300 text-xs hover:bg-gray-400 text-black font-normal px-4 py-2 rounded"
-                        >
-                            Next
-                        </button>
-                    </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={(page) => setCurrentPage(page)}
+                    />
                 </div>
             )}
 

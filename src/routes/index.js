@@ -6,7 +6,7 @@ import ForgotPassword from '+/pages/ForgotPassword';
 import VerifyOTP from '+/pages/verifyOTP';
 
 const publicRoutes = [
-    { path: '/login', component: Login },
+    { path: '/logins', component: Login },
     { path: '/forgot-password', component: ForgotPassword },
     { path: '/verify-otp', component: VerifyOTP },
     { path: '/', component: AdminPage },

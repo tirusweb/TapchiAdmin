@@ -72,10 +72,10 @@ const CreatePost = ({ onCreate, onBack }) => {
             title: postTitle,
             summary: postSummary,
             body: postBody,
-            view: 0, // Default view count
-            user: 13, // Assuming you want to use this specific user ID
+            view: 0, 
+            user: 13, 
             category: parseInt(postCategory, 10),
-            image: '', // Placeholder for image, will update after adding image
+            image: '', 
             status: "disable",
             selected: true,
             breakingNews: true,
@@ -91,8 +91,8 @@ const CreatePost = ({ onCreate, onBack }) => {
             if (response.status === 200) {
                 setSuccess('Post created successfully!');
                 setPostCreated(true);
-                setPostId(response.data.id); // Lưu lại postId sau khi tạo thành công
-                resetForm();
+                setPostId(response.data.data.id);
+                console.log('ID >>>>>>>>>>>' , response.data.data.id);
                 setLoading(false);
             } else {
                 console.error('Failed to create post:', response.status, response.data);
@@ -130,7 +130,7 @@ const CreatePost = ({ onCreate, onBack }) => {
     return (
         <div className="bg-white p-6 rounded-lg shadow-lg">
             {showBanner ? (
-                <Banner onBack={handleBackToPost} />
+                <Banner postId={postId} onBack={handleBackToPost} />
             ) : showFileUpload ? (
                 <FileUpload onBack={handleBackToPost} />
             ) : (

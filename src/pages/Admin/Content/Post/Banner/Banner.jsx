@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CreateBanner from './EditBanner/Create';
 import UpdateBanner from './EditBanner/UpdateBanner';
-import { apiGetBanner } from '+/services/PostApi/Post';
+import { apiGetBanner } from '+/services/PostApi/Post'; // Ensure correct path and function
 
 const Banner = ({ postId, onBack }) => {
     const [banners, setBanners] = useState([]);
@@ -15,25 +15,21 @@ const Banner = ({ postId, onBack }) => {
         }
     }, [postId]);
 
-    const fetchBanners = async (postId = 19) => {
+    const fetchBanners = async (postId) => {
         const token = sessionStorage.getItem('accessToken');
+        console.log('Received postId:', postId); // Check if postId is received correctly
         if (!token) {
             console.error('No access token found. Please log in.');
             return;
         }
 
         try {
-            let response = await apiGetBanner(token, postId);
+            const response = await apiGetBanner(token, postId);
             if (response && response.data && response.data.data) {
                 setBanners(response.data.data);
-               
             }
         } catch (error) {
-            if (error.response && error.response.status === 403) {
-                console.error('Access denied: You do not have permission to access this resource.');
-            } else {
-                console.error('Error fetching banners:', error);
-            }
+            console.error('Error fetching banners:', error);
         }
     };
 
@@ -99,10 +95,10 @@ const Banner = ({ postId, onBack }) => {
                 <tbody>
                     {banners.map((item, index) => (
                         <tr key={index} className="odd:bg-gray-100">
-                            <td className="border-none px-4 py-2 text-gray-600">{index + 1}</td>
+                            <td className="border-none px-4 py-2 text-gray-600">{item.id}</td>
                             <td className="border-none px-4 py-2 text-gray-600 w-[300px]">{item.url}</td>
                             <td className="border-none px-4 py-2 text-gray-600">
-                                <img src={URL.createObjectURL(item.file)} alt="Preview" className="h-20" />
+                                <img src={item.image} alt="Preview" className="h-20" />
                             </td>
                             <td className="border-none px-4 py-2 text-gray-600 flex items-center gap-2">
                                 <button onClick={() => {

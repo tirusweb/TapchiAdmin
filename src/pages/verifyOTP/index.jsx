@@ -37,7 +37,7 @@ const VerifyOTP = () => {
 
             if (response.data) {
                 setMessage('Mật khẩu đã được thay đổi thành công!');
-                navigate('/login');
+                navigate('/logins');
             }
         } catch (error) {
             setMessage('Lỗi kết nối đến server. Vui lòng thử lại.');

@@ -2,11 +2,6 @@ import axios from 'axios';
 
 export const http = axios.create({
     baseURL: `http://tapchikhcn.uneti.edu.vn/api/`,
-<<<<<<< HEAD
-    //baseURL: `https://7f7f-14-181-209-97.ngrok-free.app`
-=======
-    // baseURL: `https://7f7f-14-181-209-97.ngrok-free.app`
->>>>>>> main
 });
 
 http.interceptors.request.use(
@@ -32,7 +27,7 @@ http.interceptors.response.use(
 
             const refreshToken = sessionStorage.getItem('refreshToken');
             if (!refreshToken) {
-                window.location.href = '/login';
+                window.location.href = '/logins';
                 return Promise.reject(error);
             }
 
@@ -47,7 +42,7 @@ http.interceptors.response.use(
                 if (resData?.code === 500) {
                     sessionStorage.removeItem('accessToken');
                     sessionStorage.removeItem('refreshToken');
-                    window.location.href = '/login';
+                    window.location.href = '/logins';
                     return Promise.reject(new Error('Refresh token failed'));
                 } else {
                     sessionStorage.setItem('accessToken', resData?.accessToken);
@@ -63,7 +58,7 @@ http.interceptors.response.use(
                 console.log('>>>ERR: ', refreshError);
                 sessionStorage.removeItem('accessToken');
                 sessionStorage.removeItem('refreshToken');
-                window.location.href = '/login';
+                window.location.href = '/logins';
                 return Promise.reject(refreshError);
             }
         }

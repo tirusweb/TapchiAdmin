@@ -24,13 +24,28 @@ export const apiDeletePost = (token, id) => {
 
 //------------------Banners----------------
 export const apiGetBanner = (token ,id) => {
-    return http.get(`api/banner/${id}`, {
+    return http.get(`api/banner/by-post/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
 };
 
 
+
 export const apiCreateBanner = (data, token) => {
-    return http.post(`api/banner`, data, { headers: { Authorization: `Bearer ${token}` } });
+    return http.post('api/banner', data, { headers: { Authorization: `Bearer ${token}` } });
+};
+
+//------------------UpLoad Files----------------
+
+export const apiUploadImage = (file, token) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return http.post('api/files/upload-image', formData, { 
+        headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        } 
+    });
 };
 

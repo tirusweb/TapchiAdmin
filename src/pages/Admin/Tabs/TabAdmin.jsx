@@ -20,7 +20,7 @@ const TabAdmin = (props) => {
 
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');
-            window.location.href = '/login';
+            window.location.href = '/logins';
             onClose(false);
         } catch (err) {
             console.log('>>>Error fetching logout: ', err);
