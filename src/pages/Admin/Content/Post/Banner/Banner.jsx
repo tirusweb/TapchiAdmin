@@ -1,12 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateBanner from './EditBanner/Create';
 import UpdateBanner from './EditBanner/UpdateBanner';
+import { apiGetBanner } from '+/services/PostApi/Post';
 
-const Banner = ({ onBack }) => {
+const Banner = ({ postId, onBack }) => {
     const [banners, setBanners] = useState([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [bannerToUpdate, setBannerToUpdate] = useState(null);
+
+    useEffect(() => {
+        if (postId) {
+            fetchBanners(postId);
+        }
+    }, [postId]);
+
+    const fetchBanners = async (postId = 19) => {
+        const token = sessionStorage.getItem('accessToken');
+        if (!token) {
+            console.error('No access token found. Please log in.');
+            return;
+        }
+
+        try {
+            let response = await apiGetBanner(token, postId);
+            if (response && response.data && response.data.data) {
+                setBanners(response.data.data);
+               
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 403) {
+                console.error('Access denied: You do not have permission to access this resource.');
+            } else {
+                console.error('Error fetching banners:', error);
+            }
+        }
+    };
 
     const handleCreate = (newBanner) => {
         setBanners([...banners, newBanner]);
@@ -76,11 +105,11 @@ const Banner = ({ onBack }) => {
                                 <img src={URL.createObjectURL(item.file)} alt="Preview" className="h-20" />
                             </td>
                             <td className="border-none px-4 py-2 text-gray-600 flex items-center gap-2">
-                                <button  onClick={() => {
+                                <button onClick={() => {
                                         setBannerToUpdate(item);
                                         setIsUpdateModalOpen(true);
                                     }}
-                                     className="bg-blue-400 font-normal shadow-xl px-4 py-2 text-xs hover:bg-blue-500 text-white rounded uppercase">UPDATE</button>
+                                    className="bg-blue-400 font-normal shadow-xl px-4 py-2 text-xs hover:bg-blue-500 text-white rounded uppercase">UPDATE</button>
                                 <button onClick={() => handleDelete(item.id)} className="bg-red-400 text-xs shadow-xl ml-2 hover:bg-red-500 px-4 py-2 text-white font-normal rounded uppercase">Delete</button>
                             </td>
                         </tr>
@@ -89,8 +118,7 @@ const Banner = ({ onBack }) => {
             </table>
 
             {/* Create Banner Modal */}
-              {/* Create Banner Modal */}
-              {isCreateModalOpen && (
+            {isCreateModalOpen && (
                 <CreateBanner
                     onSave={handleCreate}
                     onClose={() => setIsCreateModalOpen(false)}
